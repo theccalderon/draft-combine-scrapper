@@ -3,11 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		96EF37DE247C0F7B0023111D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EF37DD247C0F7B0023111D /* main.swift */; };
+		96EF37E6247C3E290023111D /* CodableCSV in Frameworks */ = {isa = PBXBuildFile; productRef = 96EF37E5247C3E290023111D /* CodableCSV */; };
+		96EF37E9247C52030023111D /* CSV in Frameworks */ = {isa = PBXBuildFile; productRef = 96EF37E8247C52030023111D /* CSV */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -32,6 +34,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96EF37E6247C3E290023111D /* CodableCSV in Frameworks */,
+				96EF37E9247C52030023111D /* CSV in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +82,10 @@
 			dependencies = (
 			);
 			name = "nba-stats";
+			packageProductDependencies = (
+				96EF37E5247C3E290023111D /* CodableCSV */,
+				96EF37E8247C52030023111D /* CSV */,
+			);
 			productName = "nba-stats";
 			productReference = 96EF37DA247C0F7B0023111D /* nba-stats */;
 			productType = "com.apple.product-type.tool";
@@ -106,6 +114,10 @@
 				Base,
 			);
 			mainGroup = 96EF37D1247C0F7B0023111D;
+			packageReferences = (
+				96EF37E4247C3E290023111D /* XCRemoteSwiftPackageReference "CodableCSV" */,
+				96EF37E7247C52030023111D /* XCRemoteSwiftPackageReference "CSV.swift" */,
+			);
 			productRefGroup = 96EF37DB247C0F7B0023111D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -280,6 +292,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		96EF37E4247C3E290023111D /* XCRemoteSwiftPackageReference "CodableCSV" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dehesa/CodableCSV.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.6.0;
+			};
+		};
+		96EF37E7247C52030023111D /* XCRemoteSwiftPackageReference "CSV.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/yaslab/CSV.swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		96EF37E5247C3E290023111D /* CodableCSV */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 96EF37E4247C3E290023111D /* XCRemoteSwiftPackageReference "CodableCSV" */;
+			productName = CodableCSV;
+		};
+		96EF37E8247C52030023111D /* CSV */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 96EF37E7247C52030023111D /* XCRemoteSwiftPackageReference "CSV.swift" */;
+			productName = CSV;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 96EF37D2247C0F7B0023111D /* Project object */;
 }
