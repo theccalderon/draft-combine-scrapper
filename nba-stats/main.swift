@@ -84,9 +84,9 @@ func draftHistory() {
     
     let semaphore = DispatchSemaphore (value: 0)
     
-    var year = 2000
+    var year = 1947
     
-    while (year < 2020)
+    while (year < 2021)
     {
         
         var request = URLRequest(url: URL(string: "https://stats.nba.com/stats/drafthistory?LeagueID=00&Season=\(year)&TeamID=0")!,timeoutInterval: Double.infinity)
@@ -110,7 +110,7 @@ func draftHistory() {
             }
             do
             {
-                let stream = OutputStream(toFileAtPath: "/Users/cesar.muro/DEV/Draft combine/Draft_picks_\(year).csv", append: false)!
+                let stream = OutputStream(toFileAtPath: "./Draft_picks_\(year).csv", append: false)!
                 let csv = try! CSVWriter(stream: stream)
                 try! csv.write(row: [
                     "PERSON_ID",
@@ -338,7 +338,7 @@ func draftSpotUp() {
     
     var year = 2000
     
-    while (year < 2020)
+    while (year < 2021)
     {
         var mySubstring = String(String(year).suffix(2))
         var endYear:Int = Int(mySubstring)!
@@ -367,7 +367,7 @@ func draftSpotUp() {
             }
             do
             {
-                let stream = OutputStream(toFileAtPath: "/Users/cesar.muro/DEV/Draft combine/Draft_spot_up_\(year).csv", append: false)!
+                let stream = OutputStream(toFileAtPath: "./Draft_spot_up_\(year).csv", append: false)!
                 let csv = try! CSVWriter(stream: stream)
                 try! csv.write(row: [
                     "TEMP_PLAYER_ID",
@@ -1067,7 +1067,7 @@ func draftNonStationary()
     
     var year = 2000
     
-    while (year < 2020)
+    while (year < 2021)
     {
         var mySubstring = String(String(year).suffix(2))
         var endYear:Int = Int(mySubstring)!
@@ -1096,7 +1096,7 @@ func draftNonStationary()
             }
             do
             {
-                let stream = OutputStream(toFileAtPath: "/Users/cesar.muro/DEV/Draft combine/Draft_non_stationary_\(year).csv", append: false)!
+                let stream = OutputStream(toFileAtPath: "./Draft_non_stationary_\(year).csv", append: false)!
                 let csv = try! CSVWriter(stream: stream)
                 try! csv.write(row: [
                     "TEMP_PLAYER_ID",
@@ -1520,7 +1520,7 @@ func draftStrengthAgility()
     
     var year = 2000
     
-    while (year < 2020)
+    while (year < 2021)
     {
         var mySubstring = String(String(year).suffix(2))
         var endYear:Int = Int(mySubstring)!
@@ -1549,7 +1549,7 @@ func draftStrengthAgility()
             }
             do
             {
-                let stream = OutputStream(toFileAtPath: "/Users/cesar.muro/DEV/Draft combine/Draft_non_stationary_\(year).csv", append: false)!
+                let stream = OutputStream(toFileAtPath: "./Draft_non_stationary_\(year).csv", append: false)!
                 let csv = try! CSVWriter(stream: stream)
                 try! csv.write(row: [
                     "TEMP_PLAYER_ID",
@@ -1740,7 +1740,7 @@ func draftAntro()
     
     var year = 2000
     
-    while (year < 2020)
+    while (year < 2021)
     {
         var mySubstring = String(String(year).suffix(2))
         var endYear:Int = Int(mySubstring)!
@@ -1769,7 +1769,7 @@ func draftAntro()
             }
             do
             {
-                let stream = OutputStream(toFileAtPath: "/Users/cesar.muro/DEV/Draft combine/Draft_antro_\(year).csv", append: false)!
+                let stream = OutputStream(toFileAtPath: "./Draft_antro_\(year).csv", append: false)!
                 let csv = try! CSVWriter(stream: stream)
                 try! csv.write(row: [
                     "TEMP_PLAYER_ID",
@@ -2038,4 +2038,33 @@ func draftAntro()
 //draftSpotUp()
 //draftNonStationary()
 //draftStrengthAgility()
-draftAntro()
+//draftAntro()
+
+for arg in CommandLine.arguments {
+    if CommandLine.arguments.count > 3 {
+        print("Usage: nba-stats draft TYPE")
+        print("TYPE can be: history OR spotup OR nonstationary OR strengthagility OR antro, defaults to history")
+    }
+    else
+    {
+//    let draft = CommandLine.arguments[1]
+        let stats = "draft"
+        let type = CommandLine.arguments[2]
+        if stats == "draft"{
+            switch type {
+                case "history":
+                    draftHistory()
+                case "spotup":
+                    draftSpotUp()
+                case "nonstationary":
+                    draftNonStationary()
+                case "strengthagility":
+                    draftStrengthAgility()
+                case "antro":
+                    draftAntro()
+                default:
+                    draftHistory()
+            }
+        }
+    }
+}
