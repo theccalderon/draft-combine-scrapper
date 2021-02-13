@@ -2034,26 +2034,21 @@ func draftAntro(path: String)
     
 }
 
-//draftHistory()
-//draftSpotUp()
-//draftNonStationary()
-//draftStrengthAgility()
-//draftAntro()
-
-for arg in CommandLine.arguments {
-    if CommandLine.arguments.count > 4 {
+func main(){
+    if CommandLine.arguments.count > 4 || CommandLine.arguments.count < 3{
         print("Usage: nba-stats draft TYPE PATH")
         print("TYPE can be: history OR spotup OR nonstationary OR strengthagility OR antro, defaults to history")
         print("PATH: location to save the files")
+        return
     }
-    else
-    if CommandLine.arguments.count == 3 {
+    else if CommandLine.arguments.count == 3 {
         //    let stats = CommandLine.arguments[1]
         let stats = "draft"
         if stats == "draft"{
             let path = CommandLine.arguments[2]
             draftHistory(path: path)
         }
+        return
     }
     else
     {
@@ -2078,5 +2073,9 @@ for arg in CommandLine.arguments {
                     draftHistory(path: path)
             }
         }
+        return
     }
+
 }
+
+main()
