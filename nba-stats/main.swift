@@ -80,7 +80,7 @@ enum RowSet: Codable {
     }
 }
 
-func draftHistory() {
+func draftHistory(path: String) {
     
     let semaphore = DispatchSemaphore (value: 0)
     
@@ -110,7 +110,7 @@ func draftHistory() {
             }
             do
             {
-                let stream = OutputStream(toFileAtPath: "./Draft_picks_\(year).csv", append: false)!
+                let stream = OutputStream(toFileAtPath: path+"/Draft_picks_\(year).csv", append: false)!
                 let csv = try! CSVWriter(stream: stream)
                 try! csv.write(row: [
                     "PERSON_ID",
@@ -333,7 +333,7 @@ func draftHistory() {
     }
 }
 
-func draftSpotUp() {
+func draftSpotUp(path: String) {
     let semaphore = DispatchSemaphore (value: 0)
     
     var year = 2000
@@ -367,7 +367,7 @@ func draftSpotUp() {
             }
             do
             {
-                let stream = OutputStream(toFileAtPath: "./Draft_spot_up_\(year).csv", append: false)!
+                let stream = OutputStream(toFileAtPath: path+"/Draft_spot_up_\(year).csv", append: false)!
                 let csv = try! CSVWriter(stream: stream)
                 try! csv.write(row: [
                     "TEMP_PLAYER_ID",
@@ -1061,7 +1061,7 @@ func draftSpotUp() {
     
 }
 
-func draftNonStationary()
+func draftNonStationary(path: String)
 {
     let semaphore = DispatchSemaphore (value: 0)
     
@@ -1096,7 +1096,7 @@ func draftNonStationary()
             }
             do
             {
-                let stream = OutputStream(toFileAtPath: "./Draft_non_stationary_\(year).csv", append: false)!
+                let stream = OutputStream(toFileAtPath: path+"/Draft_non_stationary_\(year).csv", append: false)!
                 let csv = try! CSVWriter(stream: stream)
                 try! csv.write(row: [
                     "TEMP_PLAYER_ID",
@@ -1514,7 +1514,7 @@ func draftNonStationary()
     }
 }
 
-func draftStrengthAgility()
+func draftStrengthAgility(path: String)
 {
     let semaphore = DispatchSemaphore (value: 0)
     
@@ -1549,7 +1549,7 @@ func draftStrengthAgility()
             }
             do
             {
-                let stream = OutputStream(toFileAtPath: "./Draft_non_stationary_\(year).csv", append: false)!
+                let stream = OutputStream(toFileAtPath: path+"/Draft_non_stationary_\(year).csv", append: false)!
                 let csv = try! CSVWriter(stream: stream)
                 try! csv.write(row: [
                     "TEMP_PLAYER_ID",
@@ -1734,7 +1734,7 @@ func draftStrengthAgility()
     }
 }
 
-func draftAntro()
+func draftAntro(path: String)
 {
     let semaphore = DispatchSemaphore (value: 0)
     
@@ -1769,7 +1769,7 @@ func draftAntro()
             }
             do
             {
-                let stream = OutputStream(toFileAtPath: "./Draft_antro_\(year).csv", append: false)!
+                let stream = OutputStream(toFileAtPath: path+"/Draft_antro_\(year).csv", append: false)!
                 let csv = try! CSVWriter(stream: stream)
                 try! csv.write(row: [
                     "TEMP_PLAYER_ID",
@@ -2041,29 +2041,41 @@ func draftAntro()
 //draftAntro()
 
 for arg in CommandLine.arguments {
-    if CommandLine.arguments.count > 3 {
-        print("Usage: nba-stats draft TYPE")
+    if CommandLine.arguments.count > 4 {
+        print("Usage: nba-stats draft TYPE PATH")
         print("TYPE can be: history OR spotup OR nonstationary OR strengthagility OR antro, defaults to history")
+        print("PATH: location to save the files")
+    }
+    else
+    if CommandLine.arguments.count == 3 {
+        //    let stats = CommandLine.arguments[1]
+        let stats = "draft"
+        if stats == "draft"{
+            let path = CommandLine.arguments[2]
+            draftHistory(path: path)
+        }
     }
     else
     {
-//    let draft = CommandLine.arguments[1]
-        let stats = "draft"
+        
         let type = CommandLine.arguments[2]
+        let path = CommandLine.arguments[3]
+        //    let stats = CommandLine.arguments[1]
+        let stats = "draft"
         if stats == "draft"{
             switch type {
                 case "history":
-                    draftHistory()
+                    draftHistory(path: path)
                 case "spotup":
-                    draftSpotUp()
+                    draftSpotUp(path: path)
                 case "nonstationary":
-                    draftNonStationary()
+                    draftNonStationary(path: path)
                 case "strengthagility":
-                    draftStrengthAgility()
+                    draftStrengthAgility(path: path)
                 case "antro":
-                    draftAntro()
+                    draftAntro(path: path)
                 default:
-                    draftHistory()
+                    draftHistory(path: path)
             }
         }
     }
